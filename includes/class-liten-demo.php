@@ -103,19 +103,29 @@ class Liten_Demo {
 		// Load admin JS & CSS
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 10, 1 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_styles' ), 10, 1 );
-
+		/**
+		*
+		*	Add widget to dashboard
+		*
+		*
+		**/
 		add_action( 'wp_dashboard_setup', 'mkit_add_dashboard_widgets');
 
 		function mkit_add_dashboard_widgets(){
 			$title = get_option('mkit_text_field','No Title Set!');
-			wp_add_dashboard_widget('liten_damo_css', $title, 'mkit_show_dashboard_widget');
+			wp_add_dashboard_widget('liten_demo_css', $title, 'mkit_show_dashboard_widget');
 		}
 
 		function mkit_show_dashboard_widget(){
 			$content = get_option('mkit_text_block','No Content added!');
-			$image = get_option('mkit_an_image','No Image Selected!');
-			
+			$imageNumber = get_option('mkit_an_image');
+			$image = wp_get_attachment_url($imageNumber);
+			$html = '<img src="' . $image . '">';
+
+            echo $html;
+            echo '<br>';
 			echo $content;
+
 
 		}
 
